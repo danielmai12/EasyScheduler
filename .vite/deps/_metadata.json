@@ -1,0 +1,34 @@
+{
+  "hash": "2723e9e6",
+  "configHash": "c9b0c3a7",
+  "lockfileHash": "9997f414",
+  "browserHash": "7569ffbb",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "5da3f64a",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "d4129b4e",
+      "needsInterop": true
+    },
+    "aws-amplify": {
+      "src": "../../node_modules/aws-amplify/dist/esm/index.mjs",
+      "file": "aws-amplify.js",
+      "fileHash": "8e0135cd",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-4JI2AD7N": {
+      "file": "chunk-4JI2AD7N.js"
+    },
+    "chunk-CEQRFMJQ": {
+      "file": "chunk-CEQRFMJQ.js"
+    }
+  }
+}

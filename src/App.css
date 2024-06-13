@@ -1,0 +1,8 @@
+.homePage {
+  background: linear-gradient(
+    0deg,
+    rgba(72, 78, 91, 0.6) 25%,
+    rgba(14, 13, 96, 0.7) 75%
+  );
+  min-height: 100vh;
+}
