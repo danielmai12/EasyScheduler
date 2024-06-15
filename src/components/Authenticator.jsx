@@ -1,27 +1,29 @@
+// Amplify
 import {
   Authenticator as AmplifyAuthenticator,
   ThemeProvider as AmplifyThemeProvider,
 } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import { Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 
-const style = {
-  container: {
-    background: `linear-gradient(
-      180deg,
-      rgba(72, 78, 91, 0.6) 25%,
-      rgba(14, 13, 96, 0.7) 75%
-    )`,
-    height: "100%",
-    display: "flex",
-    justifyContent: "center",
-    fontFamily: "Arial",
-    top: "0",
-    boxShadow: "0 2px 4px 0 rgba(0,0,0,0.2)",
-  },
-};
+// MUI
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
+// const style = {
+//   container: {
+//     background: `linear-gradient(
+//       180deg,
+//       rgba(72, 78, 91, 0.6) 25%,
+//       rgba(14, 13, 96, 0.7) 75%
+//     )`,
+//     height: "100%",
+//     display: "flex",
+//     justifyContent: "center",
+//     fontFamily: "Arial",
+//     top: "0",
+//     boxShadow: "0 2px 4px 0 rgba(0,0,0,0.2)",
+//   },
+// };
 
 const Authenticator = ({ children }) => {
   const theme = {
@@ -57,9 +59,6 @@ const Authenticator = ({ children }) => {
       },
       components: {
         authenticator: {
-          // modal: {
-          //   backgroundColor: { value: "{colors.neutral.100}" },
-          // },
           router: {
             borderWidth: { value: "0" },
           },
@@ -78,7 +77,7 @@ const Authenticator = ({ children }) => {
     },
   };
   return (
-    <Container maxWidth="true" sx={style.container}>
+    <div className="homePage">
       <AmplifyThemeProvider theme={theme}>
         <AmplifyAuthenticator
           variation="modal"
@@ -125,7 +124,7 @@ const Authenticator = ({ children }) => {
           {children}
         </AmplifyAuthenticator>
       </AmplifyThemeProvider>
-    </Container>
+    </div>
   );
 };
 

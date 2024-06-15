@@ -14,7 +14,6 @@ const HomePage = () => {
   const navigate = useNavigate();
   return (
     <div
-      className="homePage"
       style={{
         display: "flex",
         flexDirection: "column",

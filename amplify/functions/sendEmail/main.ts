@@ -21,7 +21,7 @@ export const handler = async (event: {
   });
 
   await sendHTMLEmail(
-    "mtliendo@focusotter.com",
+    "techwithdmai@gmail.com",
     [event.userEmail],
     data.getMessage?.title as string,
     `<h1>Your message:</h1> 
