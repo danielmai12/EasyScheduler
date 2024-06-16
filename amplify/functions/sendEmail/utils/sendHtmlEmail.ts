@@ -23,11 +23,21 @@ export const sendHTMLEmail = async (
             Data: html,
           },
         },
+        Headers: [
+          {
+            Name: "X-SES-CONFIGURATION-SET",
+            Value: "ConfigSet",
+          },
+        ],
       },
     },
   };
 
+  console.log("Sending email with params:", emailParams);
+
   const sendEmailCommand = new SendEmailCommand(emailParams);
+
+  console.log("Sending email with command:", sendEmailCommand);
 
   try {
     const data = await sesClient.send(sendEmailCommand);

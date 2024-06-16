@@ -22,15 +22,20 @@ const ScheduleNewMessagePage = () => {
   const client = generateClient();
   const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
 
+  // Format date for EventBridge: yyyy-mm-ddThh:mm:ss
+  const formatDateForEventBridge = (date) => date.toISO().split(".")[0];
+
   const handleSubmit = async (values) => {
     const { title, message, deliveryDate } = values;
+
     await client.mutations.createMessageSchedule({
       title: title,
       message: message,
-      deliveryDate: deliveryDate.toISO(),
+      deliveryDate: formatDateForEventBridge(deliveryDate),
       timezone: timeZone,
     });
   };
+
   return (
     <Authenticator>
       <Navbar />
@@ -111,7 +116,6 @@ const ScheduleNewMessagePage = () => {
                         required
                         value={values.deliveryDate}
                         onChange={(date) => setFieldValue("deliveryDate", date)}
-                        // renderInput={(params) => <TextField {...params} />}
                       />
                     </LocalizationProvider>
                   </Grid>

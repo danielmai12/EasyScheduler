@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar";
 import { listMessages } from "../../amplify/functions/sendEmail/graphql/queries";
 import { Container, Typography, Card, CardContent, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
-import { CfnDocumentationVersion } from "aws-cdk-lib/aws-apigateway";
 
 const ViewMessagesPage = () => {
   const client = generateClient();

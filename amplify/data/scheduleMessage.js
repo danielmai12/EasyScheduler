@@ -1,6 +1,6 @@
 import { util, runtime } from "@aws-appsync/utils";
 
-export function request(ctx) {
+export const request = (ctx) => {
   console.log("the context identity", ctx.identity);
   if (!ctx.prev.result.id) {
     runtime.earlyReturn({
@@ -37,7 +37,7 @@ export function request(ctx) {
       },
     },
   };
-}
-export function response() {
+};
+export const response = () => {
   return { message: "message successfully scheduled" };
-}
+};

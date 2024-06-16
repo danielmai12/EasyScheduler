@@ -20,6 +20,9 @@ export const handler = async (event: {
     },
   });
 
+  console.log("the data is", data);
+  console.log("the email is", event);
+
   await sendHTMLEmail(
     "techwithdmai@gmail.com",
     [event.userEmail],
