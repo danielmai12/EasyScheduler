@@ -77,54 +77,59 @@ const Authenticator = ({ children }) => {
     },
   };
   return (
-    <div className="homePage">
-      <AmplifyThemeProvider theme={theme}>
-        <AmplifyAuthenticator
-          variation="modal"
-          formFields={{
-            signIn: {
-              username: {
-                label: "Email",
-                placeholder: "Enter your email",
-                required: true,
-              },
+    <AmplifyThemeProvider theme={theme}>
+      <AmplifyAuthenticator
+        variation="modal"
+        formFields={{
+          signIn: {
+            username: {
+              label: "Email",
+              placeholder: "Enter your email",
+              required: true,
             },
-          }}
-          components={{
-            Header: () => (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                  background: "#000",
-                  color: "#fff",
-                  py: "1rem",
-                  borderRadius: "1rem 1rem 0 0",
-                }}
+          },
+          signUp: {
+            fullname: {
+              label: "Full Name",
+              placeholder: "Enter your full name",
+              required: true,
+            },
+          },
+        }}
+        components={{
+          Header: () => (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                background: "#000",
+                color: "#fff",
+                py: "1rem",
+                borderRadius: "1rem 1rem 0 0",
+              }}
+            >
+              <Typography
+                variant="h4"
+                sx={{ fontWeight: 550, fontFamily: "fantasy" }}
               >
-                <Typography
-                  variant="h4"
-                  sx={{ fontWeight: 550, fontFamily: "fantasy" }}
-                >
-                  Easy Scheduler
-                </Typography>
-              </Box>
-            ),
-            Footer: () => (
-              <Box
-                sx={{
-                  background: "#fff",
-                  borderRadius: "0 0 1rem 1rem",
-                  py: "0.4rem",
-                }}
-              />
-            ),
-          }}
-        >
-          {children}
-        </AmplifyAuthenticator>
-      </AmplifyThemeProvider>
-    </div>
+                Easy Scheduler
+              </Typography>
+            </Box>
+          ),
+          Footer: () => (
+            <Box
+              sx={{
+                background: "#fff",
+                borderRadius: "0 0 1rem 1rem",
+                py: "0.4rem",
+              }}
+            />
+          ),
+        }}
+      >
+        {children}
+      </AmplifyAuthenticator>
+    </AmplifyThemeProvider>
   );
 };
 

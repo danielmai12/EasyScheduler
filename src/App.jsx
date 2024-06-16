@@ -1,13 +1,16 @@
 // React
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// Components
+// Pages
 import HomePage from "./pages/HomePage";
 import ScheduleNewMessagePage from "./pages/ScheduleNewMessagePage";
-import Authenticator from "./components/Authenticator";
-
-import "./App.css";
 import ViewMessagesPage from "./pages/ViewMessagesPage";
+
+// Amplify
+import { Authenticator } from "@aws-amplify/ui-react";
+
+// CSS
+import "./App.css";
 
 function App() {
   const router = createBrowserRouter([
@@ -25,11 +28,11 @@ function App() {
     },
   ]);
   return (
-    <>
-      <Authenticator>
+    <div className="homePage">
+      <Authenticator.Provider>
         <RouterProvider router={router} />
-      </Authenticator>
-    </>
+      </Authenticator.Provider>
+    </div>
   );
 }
 

@@ -13,6 +13,7 @@ import { Formik } from "formik";
 
 // Components
 import Navbar from "../components/Navbar";
+import Authenticator from "../components/Authenticator";
 
 // Amplify
 import { generateClient } from "aws-amplify/data";
@@ -31,7 +32,7 @@ const ScheduleNewMessagePage = () => {
     });
   };
   return (
-    <div>
+    <Authenticator>
       <Navbar />
       <Box
         sx={{
@@ -136,7 +137,7 @@ const ScheduleNewMessagePage = () => {
           </Formik>
         </Box>
       </Box>
-    </div>
+    </Authenticator>
   );
 };
 
