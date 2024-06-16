@@ -9,22 +9,6 @@ import "@aws-amplify/ui-react/styles.css";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-// const style = {
-//   container: {
-//     background: `linear-gradient(
-//       180deg,
-//       rgba(72, 78, 91, 0.6) 25%,
-//       rgba(14, 13, 96, 0.7) 75%
-//     )`,
-//     height: "100%",
-//     display: "flex",
-//     justifyContent: "center",
-//     fontFamily: "Arial",
-//     top: "0",
-//     boxShadow: "0 2px 4px 0 rgba(0,0,0,0.2)",
-//   },
-// };
-
 const Authenticator = ({ children }) => {
   const theme = {
     name: "EasyScheduler",
@@ -89,7 +73,7 @@ const Authenticator = ({ children }) => {
             },
           },
           signUp: {
-            fullname: {
+            name: {
               label: "Full Name",
               placeholder: "Enter your full name",
               required: true,

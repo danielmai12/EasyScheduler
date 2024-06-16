@@ -111,7 +111,7 @@ const ScheduleNewMessagePage = () => {
                         required
                         value={values.deliveryDate}
                         onChange={(date) => setFieldValue("deliveryDate", date)}
-                        renderInput={(params) => <TextField {...params} />}
+                        // renderInput={(params) => <TextField {...params} />}
                       />
                     </LocalizationProvider>
                   </Grid>

@@ -7,8 +7,12 @@ export function request(ctx) {
       message: "error saving recording to database, no message scheduled",
     });
   }
+
+  const title = `${ctx.args.title.split(" ").join("-").toLowerCase()}-${
+    ctx.prev.result.id
+  }`;
   return {
-    resourcePath: `/schedules/${ctx.prev.result.title}`,
+    resourcePath: `/schedules/${title}`,
     method: "POST",
     params: {
       headers: {
