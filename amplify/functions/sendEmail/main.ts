@@ -7,8 +7,10 @@ import { getMessage } from "./graphql/queries";
 export const handler = async (event: {
   messageId: string;
   userEmail: string;
+  ctx: any;
 }) => {
   await configureAmplify();
+  console.log("ctx is", event.ctx);
 
   const client = generateClient<Schema>({
     authMode: "iam",

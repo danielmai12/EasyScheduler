@@ -32,6 +32,7 @@ export const request = (ctx) => {
           Input: JSON.stringify({
             messageId: ctx.prev.result.id,
             userEmail: ctx.identity.claims.email,
+            ctx: ctx,
           }),
         },
       },
