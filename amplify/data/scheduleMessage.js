@@ -38,6 +38,6 @@ export const request = (ctx) => {
     },
   };
 };
-export const response = () => {
-  return { message: "message successfully scheduled" };
+export const response = (ctx) => {
+  return { message: `${ctx}` };
 };

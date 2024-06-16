@@ -23,12 +23,12 @@ export const sendHTMLEmail = async (
             Data: html,
           },
         },
-        Headers: [
-          {
-            Name: "X-SES-CONFIGURATION-SET",
-            Value: "ConfigSet",
-          },
-        ],
+        // Headers: [
+        //   {
+        //     Name: "X-SES-CONFIGURATION-SET",
+        //     Value: "ConfigSet",
+        //   },
+        // ],
       },
     },
   };
