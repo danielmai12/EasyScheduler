@@ -29,13 +29,21 @@ export const request = (ctx) => {
           RoleArn: ctx.env.SCHEDULE_FUNCTION_ROLE_ARN,
           Input: JSON.stringify({
             messageId: ctx.prev.result.id,
-            ctx: ctx,
+            userPoolId: extractUserPoolId(ctx.identity.claims.iss),
+            clientId: ctx.identity.claims.client_id,
           }),
         },
       },
     },
   };
 };
+
 export const response = (ctx) => {
   return { message: `${ctx}` };
+};
+
+const extractUserPoolId = (url) => {
+  const regex = /cognito-idp\.[a-z0-9-]+\.amazonaws\.com\/([a-z0-9-_]+)/i;
+  const match = url.match(regex);
+  return match ? match[1] : null;
 };

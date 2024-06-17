@@ -5,11 +5,13 @@ import { sendHTMLEmail } from "./utils/sendHtmlEmail";
 import { getMessage } from "./graphql/queries";
 import { fetchUserAttributes } from "aws-amplify/auth";
 import { Amplify } from "aws-amplify";
-import env from "../../../amplify_outputs.json";
 
-export const handler = async (event: { messageId: string; ctx: any }) => {
+export const handler = async (event: {
+  messageId: string;
+  userPoolId: string;
+  clientId: string;
+}) => {
   await configureAmplify();
-  console.log("ctx is", event.ctx);
 
   const client = generateClient<Schema>({
     authMode: "iam",
@@ -21,11 +23,14 @@ export const handler = async (event: { messageId: string; ctx: any }) => {
     },
   });
 
+  // This is a work around to get the user email specifically
+  // for an existing bug in the Amplify library.
+  // `ctx` does not have the email attribute if passed using the access token.
   Amplify.configure({
     Auth: {
       Cognito: {
-        userPoolId: env.auth.user_pool_id,
-        userPoolClientId: env.auth.user_pool_client_id,
+        userPoolId: event.userPoolId,
+        userPoolClientId: event.clientId,
       },
     },
   });
