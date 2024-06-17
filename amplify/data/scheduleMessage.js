@@ -1,5 +1,9 @@
 import { util, runtime } from "@aws-appsync/utils";
 
+const extractUserPoolId = (url) => {
+  return url.split("/").pop();
+};
+
 export const request = (ctx) => {
   console.log("the context identity", ctx.identity);
   if (!ctx.prev.result.id) {
@@ -40,8 +44,4 @@ export const request = (ctx) => {
 
 export const response = (ctx) => {
   return { message: `${ctx}` };
-};
-
-const extractUserPoolId = (url) => {
-  return url.split("/").pop();
 };
