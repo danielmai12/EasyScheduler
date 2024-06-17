@@ -1,9 +1,5 @@
 import { util, runtime } from "@aws-appsync/utils";
 
-const extractUserPoolId = (url) => {
-  return url.split("/").pop();
-};
-
 export const request = (ctx) => {
   console.log("the context identity", ctx.identity);
   if (!ctx.prev.result.id) {
@@ -33,8 +29,7 @@ export const request = (ctx) => {
           RoleArn: ctx.env.SCHEDULE_FUNCTION_ROLE_ARN,
           Input: JSON.stringify({
             messageId: ctx.prev.result.id,
-            userPoolId: extractUserPoolId(ctx.identity.claims.iss),
-            clientId: ctx.identity.claims.client_id,
+            userEmail: ctx.identity.claims.email,
           }),
         },
       },
