@@ -1,5 +1,4 @@
 import { util, runtime } from "@aws-appsync/utils";
-import { Auth } from "aws-amplify";
 
 export const request = (ctx) => {
   console.log("the context identity", ctx.identity);
@@ -16,10 +15,7 @@ export const request = (ctx) => {
     resourcePath: `/schedules/${title}`,
     method: "POST",
     params: {
-      headers: async () => ({
-        "Content-Type": "application/json",
-        Authorization: (await Auth.currentSession()).getIdToken().getJwtToken(),
-      }),
+      headers: { "Content-Type": "application/json" },
       body: {
         ActionAfterCompletion: "DELETE",
         ScheduleExpression: `at(${ctx.prev.result.deliveryDate})`,
@@ -33,7 +29,6 @@ export const request = (ctx) => {
           RoleArn: ctx.env.SCHEDULE_FUNCTION_ROLE_ARN,
           Input: JSON.stringify({
             messageId: ctx.prev.result.id,
-            userEmail: ctx.identity.claims.email,
             ctx: ctx,
           }),
         },

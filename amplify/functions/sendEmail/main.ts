@@ -3,12 +3,9 @@ import { type Schema } from "../../data/resource";
 import { configureAmplify } from "./configureAmplify";
 import { sendHTMLEmail } from "./utils/sendHtmlEmail";
 import { getMessage } from "./graphql/queries";
+import { fetchUserAttributes, getCurrentUser } from "aws-amplify/auth";
 
-export const handler = async (event: {
-  messageId: string;
-  userEmail: string;
-  ctx: any;
-}) => {
+export const handler = async (event: { messageId: string; ctx: any }) => {
   await configureAmplify();
   console.log("ctx is", event.ctx);
 
@@ -22,16 +19,22 @@ export const handler = async (event: {
     },
   });
 
+  const userAttributes = await fetchUserAttributes();
+  console.log("userAttributes", userAttributes);
+
   console.log("the data is", data);
   console.log("the email is", event);
 
-  await sendHTMLEmail(
-    "techwithdmai@gmail.com",
-    [event.userEmail],
-    data.getMessage?.title as string,
-    `<h1>Your message:</h1> 
-		<p>${data.getMessage?.message}</p>`
-  );
-
-  return "Hello, World!";
+  if (userAttributes.email) {
+    await sendHTMLEmail(
+      "techwithdmai@gmail.com",
+      [userAttributes.email],
+      data.getMessage?.title as string,
+      `<h1>Your message:</h1> 
+      <p>${data.getMessage?.message}</p>`
+    );
+    return "Message sent successfully!";
+  } else {
+    return `Error sending message: user not found.`;
+  }
 };
