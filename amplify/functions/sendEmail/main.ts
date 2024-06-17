@@ -3,7 +3,9 @@ import { type Schema } from "../../data/resource";
 import { configureAmplify } from "./configureAmplify";
 import { sendHTMLEmail } from "./utils/sendHtmlEmail";
 import { getMessage } from "./graphql/queries";
-import { fetchUserAttributes, getCurrentUser } from "aws-amplify/auth";
+import { fetchUserAttributes } from "aws-amplify/auth";
+import { Amplify } from "aws-amplify";
+import env from "../../../amplify_outputs.json";
 
 export const handler = async (event: { messageId: string; ctx: any }) => {
   await configureAmplify();
@@ -19,13 +21,22 @@ export const handler = async (event: { messageId: string; ctx: any }) => {
     },
   });
 
+  Amplify.configure({
+    Auth: {
+      Cognito: {
+        userPoolId: env.auth.user_pool_id,
+        userPoolClientId: env.auth.user_pool_client_id,
+      },
+    },
+  });
+
   const userAttributes = await fetchUserAttributes();
   console.log("userAttributes", userAttributes);
 
   console.log("the data is", data);
   console.log("the email is", event);
 
-  if (userAttributes.email) {
+  if (userAttributes?.email) {
     await sendHTMLEmail(
       "techwithdmai@gmail.com",
       [userAttributes.email],
