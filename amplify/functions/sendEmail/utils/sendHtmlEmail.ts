@@ -1,4 +1,5 @@
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
+import { getCurrentUser } from "aws-amplify/auth";
 
 export const sesClient = new SESv2Client();
 
@@ -23,12 +24,6 @@ export const sendHTMLEmail = async (
             Data: html,
           },
         },
-        // Headers: [
-        //   {
-        //     Name: "X-SES-CONFIGURATION-SET",
-        //     Value: "ConfigSet",
-        //   },
-        // ],
       },
     },
   };
