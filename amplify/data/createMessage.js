@@ -7,8 +7,7 @@ export const request = (ctx) => {
   const id = util.autoId();
   const now = util.time.nowISO8601();
   const owner = `${sub}::${username}`;
-  const title = `${ctx.args.title.split(" ").join("-").toLowerCase()}-${id}`;
-  // const title = ctx.args.title;
+  const title = ctx.args.title;
 
   const item = {
     ...ctx.args,

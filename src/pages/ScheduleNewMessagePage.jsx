@@ -2,22 +2,42 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import { TextField, Button, MenuItem } from "@mui/material";
-import { Formik } from "formik";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { AdapterLuxon } from "@mui/x-date-pickers/AdapterLuxon";
 
+// Formik
+import { Formik } from "formik";
+
 // Components
 import Navbar from "../components/Navbar";
-// import Authenticator from "../components/Authenticator";
+import Authenticator from "../components/Authenticator";
 
-const timeZones = ["GMT", "UTC", "EST", "CST", "MST", "PST", "AKST", "HST"];
+// Amplify
+import { generateClient } from "aws-amplify/data";
 
 const ScheduleNewMessagePage = () => {
+  const client = generateClient();
+  const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
+
+  // Format date for EventBridge: yyyy-mm-ddThh:mm:ss
+  const formatDateForEventBridge = (date) => date.toISO().split(".")[0];
+
+  const handleSubmit = async (values) => {
+    const { title, message, deliveryDate } = values;
+
+    await client.mutations.createMessageSchedule({
+      title: title,
+      message: message,
+      deliveryDate: formatDateForEventBridge(deliveryDate),
+      timezone: timeZone,
+    });
+  };
+
   return (
-    // <Authenticator>
-    <div className="homePage">
+    <Authenticator>
       <Navbar />
       <Box
         sx={{
@@ -40,9 +60,11 @@ const ScheduleNewMessagePage = () => {
             initialValues={{
               message: "",
               title: "",
-              timeZone: "CST",
             }}
-            // onSubmit={(values) => {}}
+            onSubmit={async (values, { resetForm }) => {
+              await handleSubmit(values);
+              resetForm({});
+            }}
           >
             {({
               values,
@@ -85,14 +107,15 @@ const ScheduleNewMessagePage = () => {
                   <Grid item xs={6}>
                     <LocalizationProvider dateAdapter={AdapterLuxon}>
                       <DateTimePicker
+                        disablePast
                         slotProps={{
                           textField: { fullWidth: true, required: true },
+                          field: { clearable: true },
                         }}
                         label="Delivery Date"
                         required
                         value={values.deliveryDate}
                         onChange={(date) => setFieldValue("deliveryDate", date)}
-                        renderInput={(params) => <TextField {...params} />}
                       />
                     </LocalizationProvider>
                   </Grid>
@@ -100,19 +123,12 @@ const ScheduleNewMessagePage = () => {
                     <TextField
                       fullWidth
                       required
-                      select
-                      value={values.timeZone}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      name="timeZone"
+                      disabled
+                      defaultValue={timeZone}
+                      helperText="This is your current time zone based on your browser settings."
                       label="Time Zone"
-                    >
-                      {timeZones.map((zone) => (
-                        <MenuItem key={zone} value={zone}>
-                          {zone}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      inputProps={{ readOnly: true }}
+                    />
                   </Grid>
                   <Grid item xs={12} align="center">
                     <Button type="submit" variant="contained" color="primary">
@@ -125,8 +141,7 @@ const ScheduleNewMessagePage = () => {
           </Formik>
         </Box>
       </Box>
-    </div>
-    // </Authenticator>
+    </Authenticator>
   );
 };
 

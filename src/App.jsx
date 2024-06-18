@@ -1,10 +1,15 @@
 // React
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// Components
+// Pages
 import HomePage from "./pages/HomePage";
 import ScheduleNewMessagePage from "./pages/ScheduleNewMessagePage";
+import ViewMessagesPage from "./pages/ViewMessagesPage";
 
+// Amplify
+import { Authenticator } from "@aws-amplify/ui-react";
+
+// CSS
 import "./App.css";
 
 function App() {
@@ -14,14 +19,20 @@ function App() {
       element: <HomePage />,
     },
     {
+      path: "/view-messages",
+      element: <ViewMessagesPage />,
+    },
+    {
       path: "/schedule-message",
       element: <ScheduleNewMessagePage />,
     },
   ]);
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
+    <div className="homePage">
+      <Authenticator.Provider>
+        <RouterProvider router={router} />
+      </Authenticator.Provider>
+    </div>
   );
 }
 

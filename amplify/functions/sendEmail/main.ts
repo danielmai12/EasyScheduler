@@ -8,6 +8,7 @@ export const handler = async (event: {
   messageId: string;
   userEmail: string;
 }) => {
+  console.log("event", event);
   await configureAmplify();
 
   const client = generateClient<Schema>({
@@ -21,12 +22,11 @@ export const handler = async (event: {
   });
 
   await sendHTMLEmail(
-    "mtliendo@focusotter.com",
+    "techwithdmai@gmail.com",
     [event.userEmail],
     data.getMessage?.title as string,
     `<h1>Your message:</h1> 
-		<p>${data.getMessage?.message}</p>`
+      <p>${data.getMessage?.message}</p>`
   );
-
-  return "Hello, World!";
+  return "Message sent successfully!";
 };

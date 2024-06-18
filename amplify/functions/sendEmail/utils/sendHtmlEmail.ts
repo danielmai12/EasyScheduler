@@ -1,4 +1,5 @@
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
+import { getCurrentUser } from "aws-amplify/auth";
 
 export const sesClient = new SESv2Client();
 
@@ -27,7 +28,11 @@ export const sendHTMLEmail = async (
     },
   };
 
+  console.log("Sending email with params:", emailParams);
+
   const sendEmailCommand = new SendEmailCommand(emailParams);
+
+  console.log("Sending email with command:", sendEmailCommand);
 
   try {
     const data = await sesClient.send(sendEmailCommand);

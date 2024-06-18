@@ -1,19 +1,21 @@
 import { util, runtime } from "@aws-appsync/utils";
 
-export function request(ctx) {
+export const request = (ctx) => {
   console.log("the context identity", ctx.identity);
   if (!ctx.prev.result.id) {
     runtime.earlyReturn({
       message: "error saving recording to database, no message scheduled",
     });
   }
+
+  const title = `${ctx.args.title.split(" ").join("-").toLowerCase()}-${
+    ctx.prev.result.id
+  }`;
   return {
-    resourcePath: `/schedules/${ctx.prev.result.title}`,
+    resourcePath: `/schedules/${title}`,
     method: "POST",
     params: {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: {
         ActionAfterCompletion: "DELETE",
         ScheduleExpression: `at(${ctx.prev.result.deliveryDate})`,
@@ -33,7 +35,8 @@ export function request(ctx) {
       },
     },
   };
-}
-export function response() {
-  return { message: "message successfully scheduled" };
-}
+};
+
+export const response = (ctx) => {
+  return { message: `${ctx}` };
+};
